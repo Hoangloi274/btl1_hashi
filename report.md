@@ -152,7 +152,7 @@ Mỗi **Nút (Node)** trong Cây tìm kiếm của Hashi lưu giữ các thông 
 
 ---
 
-## 1.3 Uninformed Search
+## 2. Uninformed Search
 
 
 ### 1. Khung thuật toán tổng quát (Tree Search) & 4 Tiêu chí đánh giá
@@ -205,27 +205,23 @@ Mọi thuật toán Uninformed Search đều hoạt động dựa trên nguyên 
 
 ---
 
-💡 **Trong bài toán Pacman hay Pipes/Hashi, nếu ta có thêm thông tin định hướng (ví dụ: khoảng cách Manhattan tới điểm đích), ta có thể chuyển sang Informed Search (1.4 A* Search & Heuristic) để tìm lời giải nhanh hơn nhiều. Bạn có muốn chuyển sang mục 1.4 Informed Search không?**
+## 3. Informed Search
 
----
-
-## 1.4 Informed Search
-
-### 1. Khái niệm Hàm Heuristic $h(n)$
+### 3.1 Khái niệm Hàm Heuristic $h(n)$
 * **Định nghĩa:** Hàm Heuristic $h(n)$ nhận vào một trạng thái $n$ và trả về một **ước lượng chi phí còn lại (forward cost)** từ $n$ đến trạng thái đích.
 * **Giải bài toán nới lỏng (Relaxed Problems):** Hàm heuristic thường được xây dựng bằng cách giải một bài toán nới lỏng — bài toán đã bỏ bớt một số ràng buộc của bài toán gốc.
   * *Ví dụ (Pacman Pathing):* Khoảng cách Manhattan $\text{Manhattan}(x_1, y_1, x_2, y_2) = |x_1 - x_2| + |y_1 - y_2|$ là khoảng cách chính xác để Pacman đi đến đích trong bài toán đã được nới lỏng bỏ đi các bức tường trong mê cung.
 
 ---
 
-### 2. Hai thuật toán Informed Search cốt lõi
+### 3.2 Hai thuật toán Informed Search cốt lõi
 
-#### 🟡 2.1 Greedy Best-First Search (Tìm kiếm tham ăn)
+#### 🟡 Greedy Best-First Search (Tìm kiếm tham ăn)
 * **Chiến lược:** Luôn chọn mở rộng nút trên Frontier có **giá trị heuristic $h(n)$ nhỏ nhất** (nút mà nó tin là gần đích nhất).
 * **Cấu trúc Frontier:** Priority Queue sắp xếp theo ưu tiên $h(n)$.
 * **Đánh giá:** **Không đầy đủ và Không tối ưu**. Nếu dùng một hàm $h(n)$ không tốt, thuật toán có thể rơi vào đường vòng hoặc bị dẫn dắt sang các nhánh sai lầm giống như DFS.
 
-#### 🟢 2.2 A* Search (Tìm kiếm A*)
+#### 🟢 A* Search (Tìm kiếm A*)
 * **Chiến lược:** Kết hợp chi phí tích lũy quá khứ $g(n)$ (từ UCS) và ước lượng chi phí tương lai $h(n)$ (từ Greedy Search).
 * **Công thức hàm đánh giá:**
   \\[f(n) = g(n) + h(n)\\]
@@ -237,7 +233,7 @@ Mọi thuật toán Uninformed Search đều hoạt động dựa trên nguyên 
 
 ---
 
-### 3. Điều kiện Tối ưu cho A*: Tính Chấp nhận được (Admissibility)
+### 3.3 Điều kiện Tối ưu cho A*: Tính Chấp nhận được (Admissibility)
 
 Một hàm heuristic $h(n)$ được gọi là **Admissible (Chấp nhận được)** nếu nó không âm và **không bao giờ đánh giá cao hơn chi phí thực tế** $h^*(n)$ để tới đích:
 \\[0 \le h(n) \le h^*(n), \quad \forall n\\]
@@ -247,7 +243,7 @@ Một hàm heuristic $h(n)$ được gọi là **Admissible (Chấp nhận đư�
 
 ---
 
-### 4. So sánh & Kết hợp Heuristic (Dominance)
+### 3.4 So sánh & Kết hợp Heuristic (Dominance)
 
 * **Tính trội (Dominance):** Một heuristic $h_a$ được gọi là **trội hơn** $h_b$ nếu $h_a(n) \ge h_b(n)$ với mọi nút $n$. Heuristic trội hơn sẽ đưa ra ước lượng sát với chi phí thực tế hơn, giúp A* mở rộng ít nút hơn.
 * **Heuristic tầm thường (Trivial Heuristic):** Chọn $h(n) = 0$ làm A* biến thành thuật toán UCS.
@@ -255,11 +251,8 @@ Một hàm heuristic $h(n)$ được gọi là **Admissible (Chấp nhận đư�
 
 ---
 
-### 💡 Để áp dụng thuật toán **Informed Search (Tìm kiếm có thông tin)** — cụ thể là **A* Search** hoặc **Greedy Best-First Search** — cho game **Pipes (FreeNet)**, chìa khóa quan trọng nhất là việc thiết kế một **Hàm Heuristic $h(n)$** thông minh.
+### 💡  **A\* Search**  cho **Pipes (FreeNet)**
 
-Thay vì duyệt tất cả các hướng xoay một cách mù mờ như BFS hay DFS, Informed Search sử dụng hàm đánh giá $f(n)$ để ưu tiên mở rộng các cấu hình bàn cờ có tiềm năng hoàn thành cao nhất.
-
----
 
 ### 1. Hàm đánh giá trong A* Search cho Pipes
 
@@ -276,7 +269,7 @@ $$f(n) = g(n) + h(n)$$
 
 Hàm Heuristic thường được xây dựng dựa trên việc **giải bài toán nới lỏng (Relaxed Problem)** — bỏ qua một số ràng buộc phức tạp để tính toán nhanh khoảng cách tới mục tiêu. Với game Pipes, ta có thể xây dựng các heuristic sau:
 
-#### 💡 Heuristic 1: Số lượng ô chứa đầu ống chưa khớp (Mismatched Connections)
+#### Heuristic 1: Số lượng ô chứa đầu ống chưa khớp (Mismatched Connections)
 * **Cách tính:** Đếm tổng số ô có ít nhất 1 đầu ống chĩa vào bức tường ngoài biên hoặc chĩa vào ô lân cận mà ô đó không có đầu ống đối ứng (đầu hở).
 * **Công thức ước lượng:** 
 
@@ -285,12 +278,12 @@ $h_1(n) = \lceil \text{Tổng số đầu hở} / 2 \rceil$ (hoặc đơn giản
 $h^*(n)$ là con số hoàn hảo để đến đích
 * **Tính chấp nhận được (Admissibility):** Vì mỗi lượt xoay chỉ có thể sửa góc cho 1 ô duy nhất, số bước xoay tối thiểu cần thiết để sửa tất cả các ô sai hướng chắc chắn không nhỏ hơn số ô đang bị lỗi. Do đó $0 \le h_1(n) \le h^*(n)$, đảm bảo A* luôn tìm ra lời giải tối ưu.
 
-#### 💡 Heuristic 2: Số lượng thành phần liên thông (Number of Disconnected Components)
+####  Heuristic 2: Số lượng thành phần liên thông (Number of Disconnected Components)
 * **Cách tính:** Trong Pipes, quy tắc thắng cuộc bắt buộc tất cả các đoạn ống phải nối liền thành **1 cụm duy nhất**.
 * **Công thức ước lượng:** $h_2(n) = \text{Số cụm mạng lưới rời rạc hiện tại} - 1$.
 * **Ý nghĩa:** Nếu các đoạn ống đang bị phân mảnh thành 5 cụm độc lập, agent cần ít nhất 4 thao tác nối/xoay hợp lệ để gộp chúng lại thành 1 mạng duy nhất.
 
-#### 💡 Heuristic 3: Kết hợp các Heuristic (Dominance)
+####  Heuristic 3: Kết hợp các Heuristic (Dominance)
 * Để tạo ra một heuristic mạnh hơn nữa, ta lấy giá trị lớn nhất giữa các heuristic chấp nhận được:
   $$h(n) = \max(h_1(n), h_2(n))$$
 * Hàm $h(n)$ này vừa **Admissible** (không đánh giá cao hơn thực tế) vừa **Dominant** (cho ước lượng sát với chi phí thực hơn), giúp A* loại bỏ bớt hàng loạt nút không triển vọng trên cây tìm kiếm.
@@ -317,12 +310,8 @@ $h^*(n)$ là con số hoàn hảo để đến đích
 
 ---
 
-🧩 Bạn chỉ nên chọn **Local Search** (cụ thể là thuật toán **Min-Conflicts** hoặc **Simulated Annealing**) trên các bàn cờ kích thước siêu lớn (ví dụ $15 \times 15$ trở lên).**
 
----
-
-### 💡 Để áp dụng thuật toán **Informed Search (Tìm kiếm có thông tin)** — tiêu biểu là **A\* Search** hoặc **Greedy Best-First Search** — cho trò chơi **Hashi (Bridges)**, chìa khóa cốt lõi nằm ở việc thiết kế **Hàm Heuristic $h(n)$** dựa trên các quy tắc nối đảo của game.
----
+### 💡 **A\* Search** cho **Hashi (Bridges)**
 
 
 
@@ -341,21 +330,21 @@ $$f(n) = g(n) + h(n)$$
 
 Hàm Heuristic được xây dựng bằng cách giải một **bài toán nới lỏng (Relaxed Problem)** — tạm thời bỏ qua một số quy tắc hình học phức tạp để tính toán nhanh khoảng cách tới mục tiêu:
 
-#### 💡 Heuristic 1: Tổng số cầu còn thiếu trên các đảo (Bridge Deficit Heuristic)
+#### Heuristic 1: Tổng số cầu còn thiếu trên các đảo (Bridge Deficit Heuristic)
 * **Quy tắc Hashi:** Mỗi hòn đảo $i$ ghi một con số mục tiêu $N_i$, và hiện tại đang có $d_i$ cây cầu nối vào nó.
 * **Cách tính:** Số cầu còn thiếu của đảo $i$ là $\max(0, N_i - d_i)$.
 * Vì mỗi cây cầu khi được đặt giữa hai hòn đảo sẽ đóng góp 1 cầu cho mỗi đầu đảo (giúp làm giảm tổng độ thiếu hụt của cả bàn cờ tối đa 2 đơn vị):
   $$h_1(n) = \left\lceil \frac{\sum_i \max(0, N_i - d_i)}{2} \right\rceil$$
 * **Tính chấp nhận được (Admissible):** Do mỗi bước đặt 1 cây cầu chỉ có thể giảm tối đa 2 đơn vị thiếu hụt trên toàn bản đồ, số lượng cầu thực tế $h^*(n)$ cần đặt chắc chắn không thể nhỏ hơn $h_1(n)$. Vì $0 \le h_1(n) \le h^*(n)$, hàm $h_1(n)$ thỏa mãn điều kiện **Admissibility**, đảm bảo A* luôn tìm ra lời giải tối ưu.
 
-#### 💡 Heuristic 2: Số lượng thành phần liên thông (Disconnected Components Heuristic)
+#### Heuristic 2: Số lượng thành phần liên thông (Disconnected Components Heuristic)
 * **Quy tắc Hashi:** Tất cả các hòn đảo phải được kết nối với nhau thành **một đồ thị/nhóm liên thông duy nhất**.
 * **Cách tính:** Nếu các cây cầu hiện tại đang chia bàn cờ thành $K$ cụm đảo độc lập, agent cần ít nhất $K - 1$ cây cầu nữa để nối tất cả các cụm này lại với nhau.
   $$h_2(n) = K - 1$$
 * **Tính chấp nhận được (Admissible):** Để hợp nhất $K$ thành phần rời rạc thành 1 nhóm duy nhất, số cạnh (cầu) tối thiểu cần thêm vào luôn là $K - 1$.
 
 
-#### 💡 Heuristic 3: Nút thắt cổ chai và giới hạn hướng đi (`bottleneck_corrected`)
+#### Heuristic 3: Nút thắt cổ chai và giới hạn hướng đi (`bottleneck_corrected`)
 
 * **Quy tắc Hashi:** Mỗi hòn đảo bị giới hạn bởi không gian vật lý xung quanh, chỉ có thể vươn ra một số hướng đi khả dụng nhất định.
 * **Cách tính:**
@@ -371,7 +360,7 @@ $$h_3(n) = \left\lceil \frac{1}{2} \sum_{i} \max\left(0, \text{demand}_i - \text
 
 * **Ý nghĩa:** Giúp A* nhận diện trước các điểm nghẽn vật lý khắt khe trên lưới mà chỉ đếm số cầu thiếu đơn thuần không phản ánh hết.
 
-#### 💡 Heuristic 4: Kết hợp Heuristic cực đại (Dominant Heuristic)
+#### Heuristic 4: Kết hợp Heuristic cực đại (Dominant Heuristic)
 
 * Để tạo ra hàm heuristic mạnh nhất, ta lấy giá trị cực đại giữa tất cả các hàm heuristic chấp nhận được:
 
@@ -389,7 +378,7 @@ Trò chơi Hashi có đặc thù là một bước đặt cầu sai có thể l�
 
 ---
 
-### 4. Quy trình thực thi A* Search trên Game Hashi
+### 4. Quy trình thực thi A* Search trên Hashi
 
 1. **Khởi tạo Frontier:** Đưa bàn cờ ban đầu (chưa có cây cầu nào) vào **Priority Queue**, sắp xếp ưu tiên theo giá trị $f(n) = g(n) + h(n)$ nhỏ nhất.
 2. **Chọn nút mở rộng:** Lấy trạng thái bàn cờ có $f(n)$ nhỏ nhất ra khỏi Frontier.
@@ -404,122 +393,3 @@ Trò chơi Hashi có đặc thù là một bước đặt cầu sai có thể l�
 * **DFS / BFS:** Dễ rơi vào tình trạng bùng nổ tổ hợp do số lượng cặp đảo có thể nối là rất lớn, dẫn tới việc tìm kiếm vô hướng và dễ bị nghẽn bộ nhớ.
 * **A\* Search:** Nhờ hàm $h(n)$ định hướng ("bàn cờ nào còn ít thiếu hụt cầu và ít bị phân mảnh cụm nhất sẽ được ưu tiên duyệt trước"), A* sẽ tập trung thẳng vào các nước đi chính xác và hoàn thành câu đố nhanh hơn đáng kể.
 
----
-
-🧩 **Game Hashi và Pipes cũng là hai ví dụ rất kinh điển để chuyển đổi sang Bài toán Thỏa mãn Ràng buộc (CSP) ở Chương 2. Bạn có muốn xem thử cách giải Hashi bằng thuật toán Backtracking Search kết hợp kiểm tra Arc Consistency (AC-3) không?**
-
----
-
-## 1.5 Local Search 
-
-### 1. Tổng quan về Tìm kiếm Cục bộ (Local Search)
-
-* **Sự khác biệt cốt lõi:** Trong các bài toán tìm kiếm lập kế hoạch, tác tử cần tìm một chuỗi hành động (đường đi / plan) từ trạng thái đầu đến đích. Tuy nhiên, đối với nhiều bài toán thực tế (như Sudoku, xếp lịch hay bài toán 8-Queens), chúng ta chỉ quan tâm đến **trạng thái đích / cấu hình tối ưu** thỏa mãn các ràng buộc mà không cần quan tâm đến cách thức di chuyển để tới đó.
-* **Cơ chế hoạt động:** Local Search duyệt trên không gian các lời giải "hoàn chỉnh" (complete solutions). Thay vì duy trì cây tìm kiếm (search tree), thuật toán chỉ di chuyển từ trạng thái hiện tại sang các trạng thái lân cận có giá trị tốt hơn dựa trên một **hàm mục tiêu (objective function)** hoặc hàm chi phí.
-* **Ưu điểm vượt trội:** Tiết kiệm dung lượng bộ nhớ rất lớn (thường chỉ lưu trạng thái hiện tại hoặc một vài trạng thái) và xử lý hiệu quả trong các không gian trạng thái khổng lồ.
-
----
-
-### 2. "Địa hình" Không gian Trạng thái (State-Space Landscape)
-
-Local Search đánh giá trạng thái dựa trên một bề mặt địa hình giá trị (landscape). Do chỉ quan sát cục bộ ở các ô lân cận, thuật toán thường gặp phải các chướng ngại địa hình:
-* **Local Maxima (Cực đại cục bộ):** Điểm có giá trị cao hơn tất cả các ô lân cận xung quanh, nhưng vẫn thấp hơn cực đại toàn cục (Global Maximum).
-* **Plateaus (Vùng bằng phẳng):** Khu vực mà giá trị hàm mục tiêu không thay đổi giữa các ô lân cận. Địa hình này gồm:
-  * *Flat local maximum:* Vùng phẳng đỉnh núi mà mọi hướng di chuyển xung quanh đều không làm tăng giá trị.
-  * *Shoulder (Vai núi):* Vùng phẳng mà từ đó vẫn có đường tiếp tục đi lên cao.
-
----
-
-### 3. Bốn Thuật toán Local Search Cốt lõi
-
-#### 🔴 3.1 Hill-Climbing Search (Tìm kiếm Leo đồi / Steepest-Ascent)
-* **Cơ chế:** Thuật toán liên tục di chuyển từ trạng thái hiện tại sang trạng thái lân cận có giá trị hàm mục tiêu tăng nhiều nhất. Quá trình dừng lại khi không có trạng thái lân cận nào tốt hơn trạng thái hiện tại.
-* **Đánh giá:** Mang tính "tham ăn" (greedy) nên thuật toán không đảm bảo tính đầy đủ (incomplete) và rất dễ bị mắc kẹt vĩnh viễn ở các cực đại cục bộ hay vùng bằng phẳng.
-* **Các biến thể cải tiến:**
-  * *Stochastic Hill-Climbing:* Chọn ngẫu nhiên một trong các nước đi hướng lên, giúp hội tụ đến đỉnh cao hơn.
-  * *Random Sideways Moves:* Cho phép di chuyển ngang trên các vùng phẳng (shoulders) để tìm cơ hội bứt phá.
-  * *Random-Restart Hill-Climbing:* Thực hiện nhiều lượt leo đồi từ các trạng thái bắt đầu ngẫu nhiên khác nhau. Biến thể này đạt tính đầy đủ (complete) vì trạng thái khởi tạo ngẫu nhiên sẽ có lúc rơi vào vùng của cực đại toàn cục.
-  * *Gradient Descent:* Khái niệm tương đương khi bài toán đòi hỏi **tối thiểu hóa hàm chi phí** thay vì tối đa hóa hàm mục tiêu.
-
-#### 🟠 3.2 Simulated Annealing (Mô phỏng Luyện kim)
-* **Cơ chế:** Kết hợp giữa di chuyển ngẫu nhiên (Random Walk) và leo đồi (Hill-Climbing) để vừa tìm kiếm hiệu quả vừa thoát khỏi các cực đại cục bộ.
-* **Quy tắc chấp nhận nước đi:** Chọn một nước đi lân cận ngẫu nhiên ở mỗi bước. Nếu nước đi làm tăng giá trị mục tiêu, thuật toán luôn chấp nhận. Nếu nước đi làm giảm giá trị mục tiêu, thuật toán vẫn chấp nhận nó với xác suất $e^{\Delta E / T}$.
-* **Lịch trình nhiệt độ (Schedule):** Tham số nhiệt độ $T$ bắt đầu ở mức cao (cho phép nhận nhiều nước đi kém) và giảm dần về 0 theo thời gian. Khi $T \to 0$, thuật toán hoạt động giống như Hill-Climbing thuần túy. Nếu nhiệt độ giảm đủ chậm, thuật toán sẽ tìm thấy cực đại toàn cục với xác suất tiến tới 1.
-
-#### 🟡 3.3 Local Beam Search (Tìm kiếm Chùm cục bộ)
-* **Cơ chế:** Duy trì song song **$k$ trạng thái** thay vì chỉ 1 trạng thái duy nhất.
-* **Quy trình:** Bắt đầu bằng $k$ trạng thái khởi tạo ngẫu nhiên. Ở mỗi vòng lặp, thuật toán sinh ra tất cả các trạng thái con của cả $k$ trạng thái, sau đó chọn ra **$k$ trạng thái con tốt nhất toàn bộ** cho vòng lặp tiếp theo.
-* **Sự chia sẻ thông tin:** Khác với việc chạy $k$ lượt Hill-Climbing độc lập, Local Beam Search chia sẻ thông tin giữa các luồng tìm kiếm: các luồng có giá trị cao sẽ thu hút tài nguyên tìm kiếm về khu vực tiềm năng đó.
-* **Biến thể Stochastic Beam Search:** Chọn $k$ trạng thái con dựa trên xác suất tỉ lệ với chất lượng của chúng để tránh bị kẹt ở các vùng bằng phẳng.
-
-#### 🟢 3.4 Genetic Algorithms (Thuật toán Di truyền - GA)
-* **Cơ chế:** Là một biến thể của Local Beam Search lấy cảm hứng từ quá trình tiến hóa sinh học tự nhiên.
-* **Biểu diễn:** Bắt đầu với một quần thể (population) gồm $k$ trạng thái ngẫu nhiên (gọi là các cá thể / individuals), trong đó mỗi cá thể được mã hóa thành một chuỗi ký tự trên một bảng chữ cái hữu hạn.
-* **Quy trình tiến hóa:**
-  1. *Fitness Function (Hàm thích nghi):* Đánh giá chất lượng của từng cá thể. Ví dụ với bài toán 8-Queens, hàm thích nghi là số cặp quân hậu không tấn công nhau.
-  2. *Selection (Lựa chọn):* Lựa chọn các cặp cá thể cha mẹ để sinh sản với xác suất tỉ lệ thuận với giá trị hàm thích nghi.
-  3. *Crossover (Lai ghép):* Chọn ngẫu nhiên một điểm cắt và kết hợp hai đoạn chuỗi của cha và mẹ để tạo ra cá thể con.
-  4. *Mutation (Đột biến):* Biến đổi ngẫu nhiên một ký tự trong chuỗi cá thể con với một xác suất nhỏ độc lập.
-* **Ưu điểm:** Phép lai ghép (crossover) cho phép kết hợp các khối ký tự chất lượng cao đã qua tiến hóa từ hai cá thể khác nhau để tạo ra lời giải đột phá.
-
----
-
-💡 **Đến đây, chúng ta đã khép lại toàn bộ Chương 1: Search Algorithms. Tiếp theo, bạn có muốn bước sang Chương 2: Constraint Satisfaction Problems (CSPs) để học về bài toán thỏa mãn ràng buộc và các kỹ thuật như Backtracking, Forward Checking hay Arc Consistency (AC-3) không?**
-
----
-
-# Chương 2: Constraint Satisfaction Problems (CSPs)
-## 2.1 Constraint Satisfaction Problems**.
-
-Khác với các bài toán tìm kiếm ở Chương 1 vốn thuộc loại **bài toán lập kế hoạch (planning problems)** — nơi tác tử quan tâm đến từng bước di chuyển để tới đích — bài toán CSP thuộc loại **bài toán nhận dạng (identification problems)**. Trong CSP, chúng ta chỉ quan tâm đến việc **nhận diện một cấu hình trạng thái thỏa mãn toàn bộ các điều kiện** mà không cần quan tâm đến trình tự các hành động để tạo nên cấu hình đó.
-
----
-
-### 1. Ba thành phần định nghĩa một CSP
-
-Một bài toán CSP được xác định chính xác bởi **3 yếu tố cốt lõi**:
-1. **Tập các Biến (Variables - $X$):** Tập hợp $N$ biến $\{X_1, X_2, \dots, X_N\}$ cần được gán giá trị.
-2. **Miền giá trị (Domain - $D$):** Tập hợp $\{x_1, x_2, \dots, x_d\}$ chứa tất cả các giá trị khả thi mà một biến có thể nhận.
-3. **Tập các Ràng buộc (Constraints - $C$):** Các quy tắc hoặc giới hạn đối với giá trị của các biến (có thể liên quan đến một hoặc nhiều biến khác).
-
----
-
-### 2. Trạng thái Gán giá trị một phần & Độ phức tạp
-
-* **Partial Assignments (Gán giá trị một phần):** Trạng thái trong bài toán CSP được biểu diễn bằng một cấu hình mà trong đó một số biến đã được gán giá trị, còn các biến khác thì chưa. 
-* **Độ phức tạp:** Các bài toán CSP thuộc nhóm **NP-hard**. Nếu có $N$ biến và mỗi biến có miền giá trị kích thước $d$, không gian trạng thái gán giá trị có thể lên tới $O(d^N)$. Tuy nhiên, nhờ cấu trúc ràng buộc rõ ràng, ta có thể khai thác cấu trúc này để giải bài toán hiệu quả hơn nhiều so với tìm kiếm mù.
-
----
-
-### 3. Đồ thị Ràng buộc (Constraint Graphs) & Phân loại Ràng buộc
-
-CSP thường được biểu diễn trực quan dưới dạng **Constraint Graph (Đồ thị Ràng buộc)**, trong đó các nút đại diện cho các biến và các cạnh đại diện cho các ràng buộc giữa chúng:
-
-* **Unary Constraints (Ràng buộc đơn biến):** Chỉ liên quan đến 1 biến duy nhất (thường được dùng để cắt tỉa miền giá trị của biến đó trước khi vẽ đồ thị).
-* **Binary Constraints (Ràng buộc nhị biến):** Liên quan đến 2 biến, được biểu diễn bằng các cạnh nối truyền thống trong đồ thị. *(Ví dụ: Bài toán Tô màu bản đồ nước Úc — hai bang kề nhau không được trùng màu).*
-* **Higher-order Constraints (Ràng buộc bậc cao):** Liên quan đến 3 hoặc nhiều biến trở lên.
-
----
-
-### 4. Ứng dụng mô hình hóa CSP cho Game Pipes và Hashi
-
-Để nối tiếp cuộc thảo luận ở các phần trước, đây là cách ta đưa hai trò chơi **Pipes** và **Hashi** về dạng bài toán CSP chuẩn:
-
-#### 🚰 Trò chơi Pipes (FreeNet) dưới dạng CSP:
-* **Variables ($X$):** Mỗi ô trên lưới $N \times M$ là một biến $X_{ij}$.
-* **Domain ($D$):** Góc xoay của ô $\{0^\circ, 90^\circ, 180^\circ, 270^\circ\}$.
-* **Constraints ($C$):** 
-  * *Binary Constraints:* Đối với hai ô kề nhau $X_{ij}$ và $X_{i, j+1}$, nếu cạnh tiếp giáp của $X_{ij}$ có đầu ống thì cạnh tiếp giáp của $X_{i, j+1}$ cũng phải có đầu ống tương ứng (và ngược lại).
-  * *Global Constraint:* Toàn bộ mạng lưới phải tạo thành 1 cụm liên thông duy nhất và không chứa vòng kín.
-
-#### 🌉 Trò chơi Hashi (Bridges) dưới dạng CSP:
-* **Variables ($X$):** Số lượng cầu nối giữa mỗi cặp đảo kề nhau $I_a$ và $I_b$, kí hiệu $X_{ab}$.
-* **Domain ($D$):** $\{0, 1, 2\}$ (không có cầu, cầu đơn, hoặc cầu đôi).
-* **Constraints ($C$):**
-  * *Unary/Local Constraints:* Tổng số cầu quanh đảo $I_a$ phải đúng bằng con số ghi trên đảo: $\sum_{b} X_{ab} = N_a$.
-  * *Binary/Geometric Constraints:* Hai cây cầu không được cắt nhau trên mặt phẳng.
-  * *Global Constraint:* Tất cả các hòn đảo phải tạo thành 1 đồ thị liên thông duy nhất.
-
----
-
-💡 **Bây giờ bạn đã nắm rõ cách mô hình hóa bài toán thành CSP! Tiếp theo, bạn có muốn bước sang mục 2.2 Solving CSPs: Backtracking Search để xem cách thuật toán Backtracking giải quyết các bài toán này không?**
