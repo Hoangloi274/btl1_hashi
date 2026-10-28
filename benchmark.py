@@ -10,7 +10,6 @@ from typing import Any, Dict, List
 from checker import ConstraintChecker
 from grid import Grid
 from solvers.astar import AStarSolver
-from solvers.bruteforce import BruteForceSolver
 from solvers.dfs import DFSSolver
 from state import PuzzleState
 from solvers.astar import Heuristic
@@ -39,7 +38,6 @@ class BenchmarkRunner:
         results.append(self.run_astar_variant("A* (MinConn)", Heuristic.min_conn))
         results.append(self.run_astar_variant("A* (Bottleneck)", Heuristic.bottleneck_corrected))
 
-        results.append(self.run_bruteforce("BruteForce"))
         results.append(self.run_dfs("DFS"))
 
         return results
@@ -127,31 +125,4 @@ class BenchmarkRunner:
             tracemalloc.stop()
             return BenchmarkResult("DFS", "ERROR", 0.0, 0.0, {"error": str(e)}, None)
 
-    def run_bruteforce(self, name: str = "BruteForce") -> BenchmarkResult:
-        if self.grid.rows > 7:
-             return BenchmarkResult(
-                algorithm=name,
-                status="SKIPPED",
-                time_seconds=0.0,
-                memory_peak_mb=0.0,
-                metrics={"reason": " N > 7"},
-                solution=None,
-            )
-        solver = BruteForceSolver(self.grid, self.checker)
-        tracemalloc.start()
-        try:
-            result = solver.solve()
-            _, peak = tracemalloc.get_traced_memory()
-            tracemalloc.stop()
-
-            return BenchmarkResult(
-                algorithm="BruteForce",
-                status=result.status,
-                time_seconds=result.elapsed,
-                memory_peak_mb=peak / (1024 * 1024),
-                metrics={"visited_states": result.visited},
-                solution=result.state,
-            )
-        except Exception as e:
-            tracemalloc.stop()
-            return BenchmarkResult("BruteForce", "ERROR", 0.0, 0.0, {"error": str(e)}, None)
+    

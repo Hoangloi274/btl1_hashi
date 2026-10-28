@@ -53,7 +53,7 @@ Examples:
     )
     parser.add_argument(
         "--difficulty", type=str, default="medium",
-        choices=["7x7", "9x9", "11x11", "13x13", "17x17"],
+        choices=["7x7", "9x9", "11x11", "13x13"],
         help="Puzzle difficulty level (default: medium)"
     )
     parser.add_argument(
@@ -118,7 +118,7 @@ Examples:
         
         generated_files = []
         test_number = 1
-        difficulties = ["7x7", "9x9", "11x11", "13x13", "17x17"]
+        difficulties = ["7x7", "9x9", "11x11", "13x13"]
         
         for difficulty in difficulties:
             for i in range(args.tests_per_level):

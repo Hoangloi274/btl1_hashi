@@ -68,7 +68,7 @@ DIFFICULTY_CONFIGS = {
         name="13x13"
     ),
     "17x17": DifficultyConfig(
-        size=17, min_islands=35, max_islands=40,
+        size=17, min_islands=40, max_islands=50,
         min_spacing=2, double_bridge_prob=0.5, extra_bridge_prob=0.4,
         name="17x17"
     ),

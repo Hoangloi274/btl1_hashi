@@ -8,27 +8,37 @@ Trò chơi diễn ra trên một lưới gồm các "hòn đảo" mang con số 
 **Trạng thái bắt đầu (Start State):** Cấu hình ban đầu của lưới $N \times M$ chứa vị trí cố định của các hòn đảo và con số yêu cầu (từ 1 đến 8) ghi trên từng đảo. Tại thời điểm xuất phát, chưa có cây cầu nào được đặt.
 
 **Không gian trạng thái (State Space):**
-  * Tập hợp tất cả các cấu hình phân bố cầu khả thi trên bàn cờ. 
-  * Mỗi trạng thái đại diện cho một cách gán số lượng cầu (0, 1 hoặc 2) cho các hành lang theo chiều ngang hoặc dọc giữa các cặp hòn đảo lân cận.
+  
+  Tập hợp tất cả các cấu hình phân bố cầu khả thi trên bàn cờ. 
+  Mỗi trạng thái đại diện cho một cách gán số lượng cầu (0, 1 hoặc 2) cho các hành lang theo chiều ngang hoặc dọc giữa các cặp hòn đảo lân cận.
 
 **Tập hợp các hành động (Actions):**
-   * Tại một trạng thái, hành động khả thi là chọn một hành lang giữa hai hòn đảo $I_a$ và $I_b$ (nằm trên cùng hàng hoặc cùng cột, không bị đảo khác chắn) và **đặt thêm 1 cây cầu đơn (hoặc nâng cấp thành cầu đôi)** giữa hai đảo đó.
-   * Điều kiện hành động hợp lệ: Cầu mới không được cắt ngang qua bất kỳ cây cầu nào đã có và số lượng cầu giữa $I_a, I_b$ sau khi đặt không vượt quá 2.
+
+  Tại một trạng thái, hành động khả thi là chọn một hành lang giữa hai hòn đảo $I_a$ và $I_b$ (nằm trên cùng hàng hoặc cùng cột, không bị đảo khác chắn) và đặt thêm 1 cây cầu đơn (hoặc nâng cấp thành cầu đôi) giữa hai đảo đó.
+
+  Điều kiện hành động hợp lệ: Cầu mới không được cắt ngang qua bất kỳ cây cầu nào đã có và số lượng cầu giữa $I_a, I_b$ sau khi đặt không vượt quá 2.
 
 **Mô hình chuyển trạng thái (Transition Model):**
-   * Hàm nhận vào trạng thái bàn cờ hiện tại $S$ và hành động đặt/thay đổi cầu giữa hai đảo $I_a, I_b$.
-   * Trả về **trạng thái bàn cờ mới $S'$**, trong đó số lượng cầu giữa $I_a$ và $I_b$ tăng lên 1, trong khi toàn bộ các cầu khác trên bàn cờ giữ nguyên.
+
+   Hàm nhận vào trạng thái bàn cờ hiện tại $S$ và hành động đặt/thay đổi cầu giữa hai đảo $I_a, I_b$.
+
+   Trả về trạng thái bàn cờ mới $S'$, trong đó số lượng cầu giữa $I_a$ và $I_b$ tăng lên 1, trong khi toàn bộ các cầu khác trên bàn cờ giữ nguyên.
 
 **Chi phí hành động (Action Cost):**
-   * Mỗi lần thực hiện thao tác xây một cây cầu được tính chi phí đồng nhất là **1** (cost = 1). 
-   * Tổng chi phí đường đi chính là tổng số cầu được đặt để đi từ bàn cờ trống ban đầu đến lời giải hoàn chỉnh.
+
+   Mỗi lần thực hiện thao tác xây một cây cầu được tính chi phí đồng nhất là **1** (cost = 1). 
+
+   Tổng chi phí đường đi chính là tổng số cầu được đặt để đi từ bàn cờ trống ban đầu đến lời giải hoàn chỉnh.
 
  **Các ràng buộc:**
 
-  * **Đúng số lượng cầu:** Tổng số cầu nối vào mỗi hòn đảo đúng bằng con số ghi trên hòn đảo đó.
-  * **Giới hạn số lượng cầu** Giữa hai đảo có thể kết nối trực tiếp chỉ được phép có tối đa 2 cây cầu (cầu đơn hoặc cầu đôi)
-  * **Hướng đi:** Cầu chỉ chạy theo chiều ngang hoặc chiều dọc, không cắt cầu khác.
-  * **Tính liên thông hoàn toàn:** Tất cả các hòn đảo được kết nối với nhau thành một nhóm/đồ thị liên thông duy nhất (không có đảo hay cụm đảo nào bị cô lập).
+  Đúng số lượng cầu: Tổng số cầu nối vào mỗi hòn đảo đúng bằng con số ghi trên hòn đảo đó.
+
+  Giới hạn số lượng cầu: Giữa hai đảo có thể kết nối trực tiếp chỉ được phép có tối đa 2 cây cầu (cầu đơn hoặc cầu đôi)
+
+  Hướng đi: Cầu chỉ chạy theo chiều ngang hoặc chiều dọc, không cắt cầu khác.
+
+  Tính liên thông hoàn toàn: Tất cả các hòn đảo được kết nối với nhau thành một nhóm/đồ thị liên thông duy nhất (không có đảo hay cụm đảo nào bị cô lập).
 
 ---
 
@@ -115,8 +125,9 @@ với $t_a, t_b$ là target của hai đảo đầu mút của hành lang $c$.
 
 Tại mọi nút trung gian, thuật toán chỉ duy trì các gán nhất quán cục bộ:
 
-      _respect_degrees: không đảo nào bị gán vượt target.
-      _avoid_crossings: không có hai cầu cắt nhau.
+  _respect_degrees: không đảo nào bị gán vượt target.
+
+  _avoid_crossings: không có hai cầu cắt nhau.
 
 Chỉ cần một ràng buộc bị vi phạm là toàn bộ nhánh con bị loại. Nhờ đó số nút thực tế được mở rộng giảm đáng kể.
 
@@ -138,17 +149,6 @@ Chỉ cần một ràng buộc bị vi phạm là toàn bộ nhánh con bị lo�
 
 ### 3. Thiết kế giải thuật Heuristic Search
 
-
-
-
-#### 4. Hiệu quả so với Uninformed Search
-
-* Với **BFS / DFS**, việc duyệt một không gian trạng thái lên tới $4^{N \times M}$ làm thuật toán nhanh chóng bị bùng nổ bộ nhớ hoặc chìm vào các nhánh vô vọng.
-* Với **A* Search**, nhờ có thông tin định hướng từ hàm $h(n)$ ("bàn cờ nào càng ít đầu hở thì càng được ưu tiên duyệt trước"), thuật toán sẽ **bỏ qua hầu hết các nhánh xoay sai** và đi thẳng tới cấu hình bàn cờ hoàn chỉnh.
-
----
-
-
 Trong thuật toán A*, mỗi trạng thái bàn cờ Hashi $n$ được gán một giá trị ưu tiên:
 
 $$f(n) = g(n) + h(n)$$
@@ -159,152 +159,253 @@ $$f(n) = g(n) + h(n)$$
 ---
 
 #### 3.1 Đánh giá chất lượng hàm heuristic 
-**Tính chấp nhận được (Admissible):**
+**Tính chấp nhận được (Admissibility):**
+
+Một hàm heuristic $h(n)$ được gọi là chấp nhận được nếu với mọi nút $n$, giá trị ước lượng của nó không bao giờ âm và không bao giờ vượt quá chi phí thực tế tối ưu để đi từ nút $n$ đến đích $h^*(n)$.
+
+$$\forall n, \quad 0 \le h(n) \le h^*(n)$$
 
 
 
-#### 3. Thiết kế các Hàm Heuristic $h(n)$ cho Hashi 
+trong đó:
+* $h(n)$: Chi phí ước lượng từ nút $n$ đến đích.
+* $h^*(n)$: Chi phí tối ưu thực tế từ nút $n$ đến đích.
+
+
+Đảm bảo tính tối ưu (Optimality): Nếu sử dụng một heuristic thỏa mãn tính chất admissible trong A* Tree Search, thuật toán được đảm bảo sẽ tìm ra đường đi có tổng chi phí thấp nhất (đường đi tối ưu).
+
+**Tính nhất quán (Consistence)**
+
+Một hàm heuristic $h(n)$ được gọi là consistent nếu với mọi nút $n$ và mọi nút con $n'$ của nó (được sinh ra qua một hành động có chi phí $cost(n, n')$), ước lượng khoảng cách từ $n$ đến đích không vượt quá chi phí để đi đến $n'$ cộng với ước lượng khoảng cách từ $n'$ đến đích.
+
+$$h(n) \le cost(n, n') + h(n')$$
+Với mọi nút đích $G$, giá trị heuristic luôn bằng 0: $h(G) = 0$.
+
+Nếu heuristic đạt chuẩn consistent, thuật toán được đảm bảo sẽ tìm thấy đường đi tối ưu ngay lần đầu tiên chạm tới mỗi nút mà không cần phải quay lại cập nhật đường đi ngắn hơn.
+
+**Tính trội (Dominance)**
+
+Heuristic $h_a$ được coi là trội hơn ($h_a$ dominates $h_b$) heuristic $h_b$ nếu với mọi nút $n$ trong không gian trạng thái, giá trị ước lượng của $h_a(n)$ luôn lớn hơn hoặc bằng $h_b(n)$.
+
+$$\forall n, \quad h_a(n) \ge h_b(n)$$
+
+
+  Heuristic nào có giá trị lớn hơn nhưng vẫn thỏa mãn điều kiện admissible sẽ mô phỏng sát với chi phí thực tế hơn, giúp A* định hướng tìm kiếm tập trung vào đích nhanh hơn và phải mở rộng ít nút hơn so với heuristic nhỏ hơn.
+
+  Hàm max của nhiều heuristic admissible ($\max(h_a, h_b)$) cũng sẽ là một heuristic admissible và nó sẽ trội hơn (tốt hơn) cả hai thành phần $h_a$ và $h_b$ đứng độc lập.
+
+
+
+#### 3.2 Thiết kế các Hàm Heuristic $h(n)$ cho Hashiwokakero 
 
 ##### Heuristic 1: Tổng số cầu còn thiếu trên các đảo (Bridge Deficit Heuristic)
 Mỗi hòn đảo $i$ ghi một con số mục tiêu $N_i$, và hiện tại đang có $d_i$ cây cầu nối vào nó.
-* **Cách tính:** Số cầu còn thiếu của đảo $i$ là $\max(0, N_i - d_i)$.
+
+Cách tính: Số cầu còn thiếu của đảo $i$ là $\max(0, N_i - d_i)$.
 
   Vì mỗi cây cầu khi được đặt giữa hai hòn đảo sẽ đóng góp 1 cầu cho mỗi đầu đảo (giúp làm giảm tổng độ thiếu hụt của cả bàn cờ tối đa 2 đơn vị):
   $$h_1(n) = \left\lceil \frac{\sum_i \max(0, N_i - d_i)}{2} \right\rceil$$
-* **Tính chấp nhận được (Admissible):** Do mỗi bước đặt 1 cây cầu chỉ có thể giảm tối đa 2 đơn vị thiếu hụt trên toàn bản đồ, số lượng cầu thực tế $h^*(n)$ cần đặt chắc chắn không thể nhỏ hơn $h_1(n)$. Vì $0 \le h_1(n) \le h^*(n)$, hàm $h_1(n)$ thỏa mãn điều kiện **Admissibility**, đảm bảo A* luôn tìm ra lời giải tối ưu.
+
+Do mỗi bước đặt 1 cây cầu chỉ có thể giảm tối đa 2 đơn vị thiếu hụt trên toàn bản đồ, số lượng cầu thực tế $h^*(n)$ cần đặt chắc chắn không thể nhỏ hơn $h_1(n)$. Vì $0 \le h_1(n) \le h^*(n)$, hàm $h_1(n)$ thỏa mãn điều kiện chấp nhận được, đảm bảo A* luôn tìm ra lời giải tối ưu.
 
 ##### Heuristic 2: Số lượng thành phần liên thông (Disconnected Components Heuristic)
-* **Quy tắc Hashi:** Tất cả các hòn đảo phải được kết nối với nhau thành **một đồ thị/nhóm liên thông duy nhất**.
-* **Cách tính:** Nếu các cây cầu hiện tại đang chia bàn cờ thành $K$ cụm đảo độc lập, agent cần ít nhất $K - 1$ cây cầu nữa để nối tất cả các cụm này lại với nhau.
+
+Tất cả các hòn đảo phải được kết nối với nhau thành một đồ thị liên thông duy nhất.
+
+Cách tính: Nếu các cây cầu hiện tại đang chia bàn cờ thành $K$ cụm đảo độc lập, agent cần ít nhất $K - 1$ cây cầu nữa để nối tất cả các cụm này lại với nhau.
+
   $$h_2(n) = K - 1$$
-* **Tính chấp nhận được (Admissible):** Để hợp nhất $K$ thành phần rời rạc thành 1 nhóm duy nhất, số cạnh (cầu) tối thiểu cần thêm vào luôn là $K - 1$.
+
+Luôn thỏa mãn tính chấp nhận được
+
+##### Heuristic 3: Nút thắt cổ chai và giới hạn hướng đi 
+
+Mỗi hòn đảo bị giới hạn bởi không gian vật lý xung quanh, chỉ có thể đặt cầu ở một số hướng đi khả dụng nhất định.
+
+Cách tính:
+
+  * Số cầu còn thiếu của đảo ($X_i = N_i - d_i$). 
+  * Đếm số lượng hành lang lân cận còn khả dụng ($r_i$).
+  * Nếu nhu cầu của đảo vượt quá số hướng đi khả dụng ($X > r$), phần chênh lệch $\max(0, X - r)$ chính là điểm nghẽn bắt buộc phải xây dựng cầu đôi.
 
 
-##### Heuristic 3: Nút thắt cổ chai và giới hạn hướng đi (`bottleneck_corrected`)
-
-* **Quy tắc Hashi:** Mỗi hòn đảo bị giới hạn bởi không gian vật lý xung quanh, chỉ có thể vươn ra một số hướng đi khả dụng nhất định.
-* **Cách tính:**
-  * Xét nhu cầu cầu còn thiếu của hòn đảo ($d$). 
-  * Đếm số lượng hướng đi/hành lang lân cận còn khả dụng (`available_edges`).
-  * Nếu nhu cầu của đảo vượt quá số hướng đi khả dụng ($d > \text{available\_edges}$), phần chênh lệch $\max(0, d - \text{available\_edges})$ chính là điểm nghẽn bắt buộc phải xây dựng cầu đôi (double bridges).
+$$h_3(n) = \left\lceil \frac{1}{2} \sum_{i} \max\left(0, N_i - d_i - r_i\right) \right\rceil \le \left\lceil \frac{1}{2} \sum_{i} \max\left(0, N_i - d_i\right) \right\rceil \le h_1(n) $$
 
 
-* **Công thức ước lượng:**
-
-$$h_3(n) = \left\lceil \frac{1}{2} \sum_{i} \max\left(0, \text{demand}_i - \text{available\_edges}_i\right) \right\rceil$$
+Giúp A* nhận diện trước các điểm nghẽn vật lý khắt khe trên lưới mà chỉ đếm số cầu thiếu đơn thuần không phản ánh hết, kế thừa tính chấp nhận được từ $h_1$
 
 
-* **Ý nghĩa:** Giúp A* nhận diện trước các điểm nghẽn vật lý khắt khe trên lưới mà chỉ đếm số cầu thiếu đơn thuần không phản ánh hết.
 
 ##### Heuristic 4: Kết hợp Heuristic cực đại (Dominant Heuristic)
 
-* Để tạo ra hàm heuristic mạnh nhất, ta lấy giá trị cực đại giữa tất cả các hàm heuristic chấp nhận được:
+Để tạo ra hàm heuristic mạnh nhất, ta lấy giá trị cực đại giữa tất cả các hàm heuristic chấp nhận được:
 
 $$h(n) = \max\Big(h_1(n), h_2(n), h_3(n)\Big)$$
 
 
-* Hàm $h(n)$ này vừa **Admissible** vừa **Dominant** (trội hơn các hàm thành phần), giúp thuật toán A* ước lượng sát chi phí thực tế hơn, nhận diện sớm các thế cục hiểm nghèo và loại bỏ bớt nhiều nhánh tìm kiếm không cần thiết.
----
-
-#### 3. Kỹ thuật Cắt tỉa trạng thái chết (Deadlock Pruning)
-
-Trò chơi Hashi có đặc thù là một bước đặt cầu sai có thể làm "chết" các hòn đảo xung quanh. Do đó, ta áp dụng kỹ thuật cắt tỉa sớm:
-* **Phát hiện trạng thái vi phạm:** Nếu một hành động đặt cầu khiến tổng số cầu của một đảo vượt quá con số yêu cầu ($d_i > N_i$), hoặc làm hai cây cầu cắt nhau, hoặc tạo ra một cụm đảo cô lập đã đủ cầu nhưng chưa nối với phần còn lại của bàn cờ, trạng thái đó là không hợp lệ.
-* **Gán chi phí vô cùng:** Ta gán $h(n) = \infty$ cho các trạng thái này để A* loại bỏ ngay lập tức khỏi Frontier.
+Hàm $h(n)$ này vừa Admissible vừa Dominant (trội hơn các hàm thành phần), giúp thuật toán A* ước lượng sát chi phí thực tế hơn, nhận diện sớm các thế cục hiểm nghèo và loại bỏ bớt nhiều nhánh tìm kiếm không cần thiết.
 
 ---
 
-#### 4. Quy trình thực thi A* Search trên Hashi
+#### 3.3 Phân tích độ phức tạp và nhận xét
 
-1. **Khởi tạo Frontier:** Đưa bàn cờ ban đầu (chưa có cây cầu nào) vào **Priority Queue**, sắp xếp ưu tiên theo giá trị $f(n) = g(n) + h(n)$ nhỏ nhất.
-2. **Chọn nút mở rộng:** Lấy trạng thái bàn cờ có $f(n)$ nhỏ nhất ra khỏi Frontier.
-3. **Mở rộng (Expand):** Tìm các cặp đảo kề nhau theo chiều ngang/dọc chưa bị chặn và sinh các trạng thái con bằng cách đặt 1 cầu đơn hoặc cầu đôi.
-4. **Graph Search Optimization:** Duy trì tập `reached` để lưu các cấu hình phân bố cầu đã duyệt cùng chi phí $g(n)$ nhỏ nhất, tránh việc lặp lại các chu trình thử-xóa cầu.
-5. **Kiểm tra Goal:** Thuật toán dừng khi lấy ra trạng thái có $h(n) = 0$ (mọi hòn đảo đều đạt đúng số cầu yêu cầu và toàn bộ bàn cờ liên thông hoàn toàn).
-
+| Tiêu chí | Đánh giá |
+|----------|----------|
+| **Tính đầy đủ** | Có. Với heuristic admissible, A* đảm bảo tìm thấy lời giải nếu tồn tại  |
+| **Tính tối ưu** | Có, lời giải trả về là tối ưu theo hàm chi phí|
+| **Thời gian** | $O({(b^*)}^m)$ ( $1 \le b\ll 3$) với các heuristic mạnh, không gian tìm kiếm được cắt tỉa đáng kể |
+| **Không gian** | $O(3^m)$ |
+| **Ưu điểm** | Đảm bảo lời giải tối ưu <br> Khả năng mở rộng trên lưới trung bình/lớn|
+| **Nhược điểm** | Tốn bộ nhớ|
 ---
 
-#### 5. So sánh hiệu quả với Uninformed Search
+### 4. Mô hình thực nghiệm
 
-* **DFS / BFS:** Dễ rơi vào tình trạng bùng nổ tổ hợp do số lượng cặp đảo có thể nối là rất lớn, dẫn tới việc tìm kiếm vô hướng và dễ bị nghẽn bộ nhớ.
-* **A\* Search:** Nhờ hàm $h(n)$ định hướng ("bàn cờ nào còn ít thiếu hụt cầu và ít bị phân mảnh cụm nhất sẽ được ưu tiên duyệt trước"), A* sẽ tập trung thẳng vào các nước đi chính xác và hoàn thành câu đố nhanh hơn đáng kể.
+Các bài toán được phân loại theo kích thước lưới và mật độ đảo. Bảng 4.1 chi tiết các thông số thiết lập cho test case
+<center>
+ Bảng 4.1: Thông số cấu hình chi tiết cho các bộ test case 
+</center>
 
----
-### Quy trình hiện thực hóa 
+|Kích thước lưới| Số lượng đảo (min – max) |
+|-----------|----------|
+|7x7 | 10-15  |
+| 9x9 | 25-30|
+| 11x11 | 30-35|
+| 13x13 | 30-35 |
+| **Ưu điểm** | Đảm bảo lời giải tối ưu <br> Khả năng mở rộng trên lưới trung bình/lớn|
+| **Nhược điểm** | Tốn bộ nhớ|
 
-### 1. Mô hình trạng thái tĩnh:
+### 5. Phân tích và Nhận xét
 
-Những thứ ko thay đổi trong suốt quá trình giải
+Để đánh giá và so sánh hiệu quả của các thuật toán, nhóm sử dụng các thước đo định lượng sau:
 
-- File grid.py
+**Thời gian thực thi:** Sử dụng hàm `time.perf_counter()` trong Python
 
-      class Island: 
-          tọa độ
-          capacity
-                        ??số cầu hiện tại 
-      class Corridor (Các cạnh nối 2 đảo trên cùng hàng/cột):
-          island_a
-          island_b
-          hướng đi      ??len xuống, hàng cột mấy
-          các hành lang cắt ngang nó
-      class Grid (lưới bàn cờ):
-          Island
-          Corridor
+**Số nút đã duyệt:** Số lượng trạng thái mà thuật toán đã lấy ra khỏi hàng đợi ưu tiên (nếu là A*) hoặc số lần gọi đệ quy (nếu là Backtracking).
 
-
-### 2. Mô hình trạng thái động:
-
-- File state.py
-
-Nh trạng thái thay đổi sau mỗi bước di chuyển của solver
-
-        dist bridge_counts
-            bridge_counts (số cầu trên mỗi hành lang)
-            remaining_degree (số cầu hiện tại của mỗi đảo)
-            apply_action (hàm tạo trạng thái con mới khi đặt thêm 1 cầu)
-            --hash--,--eq-- (hàm mã hóa trạng thái để thuật toán A* check xem trạng thái này đã đc duyệt qua trong Closed Set hay chưa)     ??cùng trạng thái nh khác hướng cầu thì sao
-
-  ---
-        **Set-Dict,__hash__,__eq__** (magic method)
-
-          **Set** lưu trữ là khóa của **dict**
-          __hash__ hàm băm              ??lấy key là gì bỏ vào set
-          __eq__(self, other) giải quyết đụng độ, xem trạng thái này đã đc thêm vào set chưa          
-
-### 3. Kiểm tra thỏa ràng buộc
-
-- File checker.py
-
-      hàm kiểm tra cục bộ (kt xem việc đặt cầu có phá ràng buộc nào ko)
-      hàm kt toàn cục /is_solved/ (kt xem đã giải xong ch) ??kt tính liên thông Union-Find (làm j)
-
-
-### 4. Thuật toán
-
-- Solvers/ (astar.py, backtracking.py,..,)
-
-  - astar.py
-        Priority Queue (dùng /heapq/ của Python để lưu các trạng thái chờ duyệt dựa trên hàm chi phí f=g+h)
-        Hàm Heuristic 
-            /deficit/ số cầu còn thiếu
-            /min_conn/ số TP liên thông
-            /bottleneck_corrected/ nhận diện trước các điểm nghẽn
-        Vòng lặp tìm kiếm: lấy node có min f -> kiểm tra đích -> sinh các trạng thái con -> đẩy vào heap
-
-  - backtracking.py
-
-### 5. Nhập/ Xuất dữ liệu (Đọc file input, ghi output)
-
-- File loader.py, renderer.py 
-    Xử lý giao tiếp với tg bên ngoài (đọc file từ thư mục Inputs/ và in ra kết quả cho người dùng xem)
-
-    - loader.py: Chuyển dl file thành các đối tượng Island, Corridors  trong Grid
-    - renderer.py: In bàn cờ ra màn hình Console 
-
----
+**Bộ nhớ sử dụng:** Lượng bộ nhớ RAM tối đa mà thuật toán chiếm dụng, đo bằng thư viện `tracemalloc`.   
 
 
 
+| Grid size | Islands | Total Bridges | Algorithm | Time (s) | Mem (MB) | Nodes |
+| :---: | :---: | :---: | :------- | :--- | :--- | :--- |
+| **7x7** | 13 | 32 |  <span style="display:inline-block; width:100px;"> A* (Composite)  <br>DFS | 0.0268<br>24.5085 | 0.08<br>0.00 | 44<br>358853 |
+| **7x7** | 14 | 38 | <span style="display:inline-block; width:100px;"> A* (Composite) <br>DFS | 0.0125<br>54.7000 | 0.05<br>0.00 | 51<br>754514 |
+| **7x7** | 13 | 32 | <span style="display:inline-block; width:100px;"> A* (Composite) <br>DFS | 0.0088<br>15.9173 | 0.05<br>0.00 | 44<br>261906 |
+| **9x9** | 26 | 72 | <span style="display:inline-block; width:100px;"> A* (Composite) <br>DFS | 0.3180<br>SKIPPED | 0.73<br>0.00 | 679<br>0 |
+| **9x9** | 25 | 58 | <span style="display:inline-block; width:100px;"> A* (Composite) <br>DFS | 0.4413<br>SKIPPED | 0.80<br>0.00 | 907<br>0 |
+| **9x9** | 25 | 58 | <span style="display:inline-block; width:100px;"> A* (Composite) <br>DFS | 0.2521<br>SKIPPED | 0.45<br>0.00 | 551<br>0 |
+| **11x11** | 31 | 90 | <span style="display:inline-block; width:100px;"> A* (Composite) <br>DFS | 2.6227<br>SKIPPED | 4.49<br>0.00 | 4294<br>0 |
+| **11x11** | 31 | 82 | <span style="display:inline-block; width:100px;"> A* (Composite) <br>DFS | 10.3402<br>SKIPPED | 25.36<br>0.00 | 17745<br>0 |
+| **11x11** | 33 | 92 | <span style="display:inline-block; width:100px;"> A* (Composite) <br>DFS | 1.2792<br>SKIPPED | 2.45<br>0.00 | 2105<br>0 |
+| **13x13** | 31 | 80 | <span style="display:inline-block; width:100px;"> A* (Composite) <br>DFS | 0.5894<br>SKIPPED | 1.39<br>0.00 | 1069<br>0 |
+| **13x13** | 33 | 102 | <span style="display:inline-block; width:100px;"> A* (Composite) <br>DFS | 3.1314<br>SKIPPED | 5.12<br>0.00 | 5124<br>0 |
+| **13x13** | 33 | 108 | <span style="display:inline-block; width:100px;"> A* (Composite) <br>DFS | 2.5966<br>SKIPPED | 4.52<br>0.00 | 4031<br>0 |
 
-                        
+#### 5.1 Tác động cúa số lượng đảo
 
+Số lượng đảo là yếu tố trực tiếp nhất ảnh hưởng đến độ phức tạp của bài toán Hashiwokakero.
+
+![alt text](image-1.png)
+<center>
+Bảng 4.2: Thời gian theo số lượng đảo 
+</center>
+
+![alt text](image-2.png)
+<center>
+Bảng 4.3: Thời gian theo số lượng đảo (Log Scale)
+</center>
+
+![alt text](image-3.png)
+<center>
+Bảng 4.4: Số lượng nút duyệt theo số lượng đảo 
+</center>
+
+![alt text](image-4.png)
+<center>
+Bảng 4.5: Bộ nhớ theo số lượng đảo
+</center>
+
+![alt text](image-6.png)
+<center>
+Bảng 4.6: Bộ nhớ theo số lượng đảo (Log Scale)
+</center>
+
+**Thời gian thực thi:** 
+- Hình 4.2, ta thấy thời gian chạy của tất cả các thuật toán đều tăng vọt khi số lượng đảo tăng
+- Trên biểu đồ Logarit (Hình 4.3), độ dốc của đường A* (Composite) thấp hơn đáng kể so với DFS. Điều này chứng tỏ hàm Heuristic đã ước lượng tốt chi phí, giúp giảm cơ số của hàm mũ và cho phép thuật toán tiếp cận được các bài toán có kích thước lớn hơn.
+
+**Không gian:** 
+
+Hình 4.4 minh họa sự chênh lệch cực lớn giữa số
+nút phải duyệt giữa DFS với các thuật toán Heuristic. Trong khi Backtracking lãng phí tài nguyên vào các nhánh vô vọng, A* với Heuristic tốt tập trung mở rộng các nút tiềm năng, giảm
+thiểu đáng kể không gian tìm kiếm.
+
+**Bộ nhớ:**
+
+- DFS cho mức tiêu hao bộ nhớ thấp và ổn định trong khi A* phải lưu trữ toàn bộ tập Open và Closed để đảm bảo tính tối ưu, dẫn
+đến việc tiêu thụ bộ nhớ tăng nhanh theo số lượng đảo.
+
+- Với bài toán có số lượng lớn đảo (>40), A* có xu hướng
+gặp lỗi tràn bộ nhớ trước khi hết thời gian cho phép.
+
+#### 5.2 Tác động của kích thước lưới
+
+Kích thước lưới (Grid Size) cũng ảnh hưởng đến độ phức tạp
+
+![alt text](image-7.png)
+<center>
+Bảng 4.7: Thời gian theo kích thước lưới
+</center>
+
+![alt text](image-8.png)
+<center>
+Bảng 4.8: Thời gian theo kích thước lưới (Log Scale)
+</center>
+
+Khi kích thước lưới tăng nhưng mật độ đảo giữ nguyên, bài toán
+có thể trở nên dễ hơn do giảm bớt các ràng buộc chéo (crossing constraints). Tuy nhiên, không gian tìm kiếm vẫn mở rộng do độ dài đường đi tăng lên.
+
+Hình 4.7 cho thấy độ phân tán dữ liệu lớn hơn nhiều so với biểu
+đồ theo số đảo. Cho thấy vị trí tương đối của các đảo có ảnh hưởng đến độ khó.
+
+#### 5.3 Mức độ hiệu quả của các thuật toán Heuristic
+
+![alt text](image-9.png)
+<center>
+Bảng 4.8: So sánh thời gian thực thi giữa các Heuristic 
+</center>
+
+![alt text](image-10.png)
+<center>
+Bảng 4.9: So sánh số nút duyệt giữa các Heuristic 
+</center>
+
+Về số nút mở rộng, Composite Heuristic cho kết quả tốt nhất nhờ cận dưới chặt. Tuy nhiên, về thời gian thực thi trung bình, Deficit Heuristic vượt trội vì chi phí đánh giá thấp hơn. Composite phải tính đồng thời ba heuristic thành phần nên overhead lớn hơn, dẫn đến tổng thời gian cao hơn dù ít nút hơn. Điều này thể hiện rõ sự đánh đổi giữa độ chặt của heuristic và chi phí tính toán tại mỗi nút.
+
+### 6. Kết luận
+
+Trong đồ án này, nhóm đã mô hình hóa bài toán Hashiwokakero dưới dạng bài toán tìm kiếm trong không gian trạng thái và hiện thực hai nhóm giải thuật đại diện: tìm kiếm mù (DFS/Backtracking) và tìm kiếm có thông tin (A* với các heuristic chuyên biệt).
+
+Về phía DFS, thuật toán được xây dựng theo cơ chế Backtracking kết hợp sắp xếp biến theo MRV và cắt tỉa sớm dựa trên ràng buộc bậc cùng ràng buộc không giao cắt. Giải thuật đảm bảo tính đầy đủ trên không gian hữu hạn, sử dụng bộ nhớ rất thấp \(O(|C|)\), nhưng không đảm bảo tính tối ưu và dễ bùng nổ tổ hợp khi số hành lang tăng. Thực nghiệm cho thấy DFS chỉ phù hợp với các lưới kích thước nhỏ (thường \(N \le 7\)).
+
+Về phía A*, nhóm đề xuất và chứng minh bốn heuristic: Deficit, Disconnected Components, Local Bottleneck và Composite. Cả bốn heuristic đều thỏa mãn tính chấp nhận được, nhờ đó A* bảo đảm tìm được lời giải tối ưu. Kết quả thực nghiệm cho thấy:
+
+- Composite cho cận dưới chặt nhất, giúp giảm mạnh số nút mở rộng
+- Deficit có chi phí đánh giá thấp nhất nên thường đạt thời gian chạy tốt nhất trên bộ test
+- A* mở rộng được sang các lưới lớn hơn rõ rệt so với DFS, thể hiện ưu thế của việc tận dụng tri thức miền.
+
+Sự so sánh giữa hai hướng tiếp cận làm rõ mối quan hệ đánh đổi trong tìm kiếm: DFS ưu tiên tiết kiệm bộ nhớ và sự đơn giản; A* ưu tiên chất lượng lời giải và khả năng cắt tỉa không gian trạng thái. Với bài toán Hashi, khi luật chơi chỉ yêu cầu một cấu hình hợp lệ, cả hai đều có thể trả về nghiệm đúng; tuy nhiên nếu xét hiệu năng tổng thể và khả năng mở rộng, A* với heuristic phù hợp là lựa chọn vượt trội.
+
+Hướng phát triển tiếp theo có thể gồm: tinh chỉnh thêm heuristic (ví dụ kết hợp thông tin luồng hoặc ràng buộc toàn cục chặt hơn), tích hợp forward checking sâu hơn vào A*, mở rộng thử nghiệm trên bộ dữ liệu lớn hơn, và hoàn thiện giao diện tương tác để hỗ trợ người chơi cũng như trực quan hóa quá trình tìm kiếm của từng giải thuật.
+
+
+## Tài liệu tham khảo
+
+[1] Berkeley Artificial Intelligence Group, CS 188: Introduction to Artificial Intelligence (Textbook), University of California, Berkeley. https://inst.eecs.berkeley.edu/~cs188/textbook/
+
+[2] GeeksforGeeks, Backtracking algorithms. https://www.geeksforgeeks.org/dsa/backtracking-algorithms/
+
+[3] GeeksforGeeks, State space search in AI. https://www.geeksforgeeks.org/artificial-intelligence/state-space-search-in-ai/
+
+[4] D. Poole and A. Mackworth, Artificial Intelligence: Foundations of Computational Agents, 3rd ed. Cambridge University Press, 2017, ch. 3, sec. 3.7. https://artint.info/3e/html/ArtInt3e.Ch3.S7.html
