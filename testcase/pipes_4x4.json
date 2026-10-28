@@ -1,6 +1,0 @@
-{
-  "grid": [
-    [{"type": "straight", "rotation": 0}, {"type": "elbow", "rotation": 90}],
-    [{"type": "tee", "rotation": 180}, {"type": "straight", "rotation": 270}]
-  ]
-}
